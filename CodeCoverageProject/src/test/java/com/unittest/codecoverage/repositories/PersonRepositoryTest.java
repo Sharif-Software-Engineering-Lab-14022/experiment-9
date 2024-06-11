@@ -3,6 +3,8 @@ package com.unittest.codecoverage.repositories;
 import com.unittest.codecoverage.models.Person;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -70,5 +72,11 @@ public class PersonRepositoryTest {
 
         Person person = personRepository.get("John Doe");
         assertNull(person);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"Mohammad Amin", "Amir Mohammad", "Mana"})
+    public void testDelete_WithVariousNames(String name) {
+        assertDoesNotThrow(() -> personRepository.delete(name));
     }
 }
